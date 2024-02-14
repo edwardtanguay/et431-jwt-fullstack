@@ -1,0 +1,89 @@
+@url = http://localhost:4211
+
+### ADD SINGLE BOOK
+POST {{url}}/books
+content-type: application/json
+	
+{
+	"title": "Book 005",
+	"authors": [
+		"John Granger",
+		"Jines Hooplaton"
+	],
+	"pages": 812,
+	"available": true
+}
+
+### GET ALL BOOKS
+GET {{url}}/books
+	
+### DELETE ALL BOOKS
+DELETE {{url}}/books
+
+### GET SINGLE BOOK
+GET {{url}}/books/65c041844c41360d85e13774
+	
+### DELETE SINGLE BOOK
+DELETE {{url}}/books/65c041844c41360d85e13774
+
+### UPDATE SINGLE BOOK
+PATCH {{url}}/books/65c041804c41360d85e13772
+content-type: application/json
+	
+{
+	"pages": 999
+}
+
+####################################################################
+
+### ADD SINGLE USER 
+POST {{url}}/users
+content-type: application/json
+	
+{
+	"login": "bb", 
+	"firstName": "Bernd",
+	"lastName": "Buchholz",
+	"email": "bb@htl.com",
+	"address" : {
+		"street": "Holework Street 23",
+		"zipCode": 31239,
+		"city": "Birmingham"
+	}
+}
+
+
+### GET ALL USERS
+GET {{url}}/users
+	
+### DELETE ALL USERS
+DELETE {{url}}/users
+
+### GET SINGLE USER
+GET {{url}}/users/65c046462d823d3c4e827317
+
+### DELETE SINGLE USER
+DELETE {{url}}/users/65c046462d823d3c4e827319
+
+### UPDATE SINGLE USER
+PATCH {{url}}/users/65c046472d823d3c4e82731b
+content-type: application/json
+	
+{
+	"mobile": 999
+}
+
+### LOGIN USER
+POST {{url}}/users/login
+Content-Type: application/json
+
+{
+	"login": "bb",
+	"password": ""
+}
+
+### CURRENT USER
+GET {{url}}/users/current
+
+### LOGOUT USER
+GET {{url}}/users/logout
