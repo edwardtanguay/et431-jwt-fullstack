@@ -29,3 +29,11 @@ export const initialLoginformData = {
 	login: '',
 	password: ''
 }
+
+export interface ICurrentUser {
+	fullName: string;
+}
+
+export const initialCurrentUser = {
+	fullName: ''
+}

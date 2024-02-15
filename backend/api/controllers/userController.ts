@@ -4,7 +4,7 @@ import { User } from "../schemas/userSchema";
 import express from "express";
 import jwt from "jsonwebtoken";
 import * as config from "../../config";
-import * as jwttools from '../jwttools';
+import * as jwttools from "../jwttools";
 
 // declare module "express-session" {
 // 	interface SessionData {
@@ -99,18 +99,16 @@ export const loginUser = async (req: any, res: express.Response) => {
 		const { login } = req.body;
 		const user = await User.findOne({ login });
 		if (user !== null) {
-			const seconds = 15;
-			// req.session.user = user;
-			// req.session.cookie.expires = new Date(Date.now() + seconds * 1000);
-			// req.session.save();
-			// res.json(user);
+			const seconds = 10;
 			jwt.sign(
 				{ user },
 				config.sessionSecret(),
 				{ expiresIn: seconds + "s" },
 				(err: any, token: any) => {
 					res.json({
-						user,
+						user: {
+							fullName: `${user.firstName} ${user.lastName}`,
+						},
 						token,
 					});
 				}
@@ -125,23 +123,21 @@ export const loginUser = async (req: any, res: express.Response) => {
 
 export const getCurrentUser = async (req: any, res: express.Response) => {
 	try {
-		// if (req.session.user) {
-		// 	res.send(req.session.user);
-		// } else {
-		// 	res.status(401).send("no user logged in");
-		// }
 		jwt.verify(
 			(req as unknown as CustomRequest).token,
 			config.sessionSecret(),
 			(err) => {
 				if (err) {
-					res.status(403).send('invalid token');
+					res.status(403).send("invalid token");
 				} else {
 					const data = jwttools.decodeJwt(
 						(req as unknown as CustomRequest).token
 					);
+					const user = data.user;
 					res.json({
-						user: data.user,
+						user: {
+							fullName: `${user.firstName} ${user.lastName}`,
+						},
 					});
 				}
 			}
@@ -150,12 +146,3 @@ export const getCurrentUser = async (req: any, res: express.Response) => {
 		handleError(res, e);
 	}
 };
-
-// export const logoutUser = async (req: any, res: express.Response) => {
-// 	try {
-// 		req.session.user = null;
-// 		res.send("user logged out");
-// 	} catch (e) {
-// 		handleError(res, e);
-// 	}
-// };
