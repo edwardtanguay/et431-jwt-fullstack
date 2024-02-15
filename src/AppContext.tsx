@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { createContext, useEffect, useState } from "react";
 import { IBook, ILoginFormData, IUser, initialLoginformData } from "./interfaces";
@@ -10,6 +11,7 @@ interface IAppContext {
 	users: IUser[];
 	loginFormData: ILoginFormData;
 	handleLoginFormFieldChange: (fieldIdCode: string, fieldValue: string) => void;
+	handleLoginFormSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
 interface IAppProvider {
@@ -51,13 +53,40 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 		setLoginFormData(structuredClone(loginFormData));
 	}
 
+	const handleLoginFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		(async () => {
+			const headers = {
+				"Access-Control-Allow-Origin": "*",
+				"Content-Type": "application/json",
+			};
+			try {
+				const response = await axios.post(
+					`${backendUrl}/users/login`,
+					loginFormData,
+					{ headers }
+				);
+
+				if (response.status === 200) {
+					localStorage.setItem("token", response.data.token);
+					console.log(response.data);
+				} else {
+					console.log("ERROR: bad login");
+				}
+			} catch (e: any) {
+				console.log("ERROR: bad login");
+			}
+		})();
+	};	
+
 	return (
 		<AppContext.Provider
 			value={{
 				books,
 				users,
 				loginFormData,
-				handleLoginFormFieldChange
+				handleLoginFormFieldChange,
+				handleLoginFormSubmit
 			}}
 		>
 			{children}
