@@ -21,7 +21,7 @@ interface IAppContext {
 		fieldIdCode: string,
 		fieldValue: string
 	) => void;
-	handleLoginFormSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+	handleLoginFormSubmit: (e: React.FormEvent<HTMLFormElement>, callback: () => void) => void;
 	currentUser: ICurrentUser;
 }
 
@@ -96,7 +96,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 		setLoginFormData(structuredClone(loginFormData));
 	};
 
-	const handleLoginFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleLoginFormSubmit = (e: React.FormEvent<HTMLFormElement>, callback: () => void) => {
 		e.preventDefault();
 		(async () => {
 			const headers = {
@@ -114,6 +114,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 					localStorage.setItem("token", response.data.token);
 					setCurrentUser(response.data.user);
 					setLoginFormData(structuredClone(initialLoginformData));
+					callback()
 				} else {
 					console.log("ERROR: bad login");
 					setCurrentUser(initialCurrentUser);
