@@ -34,10 +34,12 @@ export const AppContext = createContext<IAppContext>({} as IAppContext);
 export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 	const [books, setBooks] = useState<IBook[]>([]);
 	const [users, setUsers] = useState<IUser[]>([]);
-	const [loginFormData, setLoginFormData] =
-		useState<ILoginFormData>(structuredClone(initialLoginformData));
-	const [currentUser, setCurrentUser] =
-		useState<ICurrentUser>(structuredClone(initialCurrentUser));
+	const [loginFormData, setLoginFormData] = useState<ILoginFormData>(
+		structuredClone(initialLoginformData)
+	);
+	const [currentUser, setCurrentUser] = useState<ICurrentUser>(
+		structuredClone(initialCurrentUser)
+	);
 
 	useEffect(() => {
 		(async () => {
@@ -115,10 +117,14 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 				} else {
 					console.log("ERROR: bad login");
 					setCurrentUser(initialCurrentUser);
+					loginFormData.message = "Bad login, try again.";
+					setLoginFormData(structuredClone(loginFormData));
 				}
 			} catch (e: any) {
 				console.log("ERROR: bad login");
 				setCurrentUser(initialCurrentUser);
+				loginFormData.message = "Bad login, try again.";
+				setLoginFormData(structuredClone(loginFormData));
 			}
 		})();
 	};

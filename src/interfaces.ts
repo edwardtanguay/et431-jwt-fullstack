@@ -23,11 +23,13 @@ export interface IUser {
 export interface ILoginFormData {
 	login: string;
 	password: string;
+	message: string;
 }
 
 export const initialLoginformData = {
 	login: '',
-	password: ''
+	password: '',
+	message: ''
 }
 
 export interface ICurrentUser {

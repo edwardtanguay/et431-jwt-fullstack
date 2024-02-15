@@ -37,7 +37,8 @@ export const PageLogin = () => {
 					type="password"
 				/>
 			</div>
-			<div className="flex justify-end pr-2">
+			<div className="flex justify-between pr-2">
+				<div className="text-red-600">{loginFormData.message}</div>
 				<button className="bg-slate-200 px-2 py-1 rounded">
 					Login
 				</button>
