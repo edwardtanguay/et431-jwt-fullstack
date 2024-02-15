@@ -5,20 +5,20 @@ import mongoose from 'mongoose';
 import * as tools from '../tools';
 import { bookRouter } from './routers/bookRouter';
 import { userRouter } from './routers/userRouter';
-import session from "express-session";
-import cookieParser from 'cookie-parser';
+// import session from "express-session";
+// import cookieParser from 'cookie-parser';
 
 const app = express();
 app.use(express.json());
 app.use(cors());
-app.use(
-	session({
-		resave: true,
-		saveUninitialized: true,
-		secret: config.sessionSecret()
-	})
-)
-app.use(cookieParser());
+// app.use(
+// 	session({
+// 		resave: true,
+// 		saveUninitialized: true,
+// 		secret: config.sessionSecret()
+// 	})
+// )
+// app.use(cookieParser());
 
 app.get('/', (_req, res) => {
 	res.send('<h1>Book Site API</h1>');

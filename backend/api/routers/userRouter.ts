@@ -1,4 +1,5 @@
 import express from 'express';
+import * as jwttools from '../jwttools';
 
 import {
 	getSingleUser,
@@ -9,7 +10,7 @@ import {
 	deleteAllUsers,
 	loginUser,
 	getCurrentUser,
-	logoutUser,
+	// logoutUser,
 } from '../controllers/userController.js';
 
 export const userRouter = express.Router();
@@ -21,10 +22,10 @@ userRouter
 	.delete(deleteAllUsers);
 userRouter
 	.route('/current')
-	.get(getCurrentUser);
-userRouter
-	.route('/logout')
-	.get(logoutUser);
+	.get(jwttools.verifyToken, getCurrentUser);
+// userRouter
+	// .route('/logout')
+	// .get(logoutUser);
 userRouter
 	.route('/:id')
 	.get(getSingleUser)

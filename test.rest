@@ -84,6 +84,8 @@ Content-Type: application/json
 
 ### CURRENT USER
 GET {{url}}/users/current
+content-type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImFkZHJlc3MiOnsic3RyZWV0IjoiSG9sZXdvcmsgU3RyZWV0IDIzIiwiemlwQ29kZSI6IjMxMjM5IiwiY2l0eSI6IkJpcm1pbmdoYW0ifSwiX2lkIjoiNjVjZDNiYTg2Mzk1YTkyY2E3OGNlY2M4IiwibG9naW4iOiJiYiIsImZpcnN0TmFtZSI6IkJlcm5kIiwibGFzdE5hbWUiOiJCdWNoaG9seiIsImVtYWlsIjoiYmJAaHRsLmNvbSIsImNyZWF0ZWRBdCI6IjIwMjQtMDItMTRUMjI6MTY6MDguNzI4WiIsInVwZGF0ZWRBdCI6IjIwMjQtMDItMTRUMjI6MTY6MDguNzI4WiJ9LCJpYXQiOjE3MDc5NTYwNTksImV4cCI6MTcwNzk1NjA3NH0.mcr8GoaziniVMMLDb4QxEIxNDZmnp6V2ltghWTJneHc
 
-### LOGOUT USER
-GET {{url}}/users/logout
+# ### LOGOUT USER
+# GET {{url}}/users/logout
